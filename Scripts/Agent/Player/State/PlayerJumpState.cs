@@ -12,10 +12,10 @@ public class PlayerJumpState : PlayerState
     public override void UpdateState()
     {
 
-        if(!_player.PlayerMovement.IsGround && _player.PlayerMovement.Rg2d.velocity.y <= 0){
+        if(!_player.MovementCompo.IsGround && _player.MovementCompo.Velocity.y <= 0){
             _stateMachine.ChangeState(PlayerStateEnum.Fall);
-        }
-        if(_player.PlayerMovement.Rg2d.velocity.y == 0){
+        }   
+        if(_player.MovementCompo.Velocity.y == 0){
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
     }

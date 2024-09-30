@@ -10,8 +10,8 @@ public class PlayerAttackState : PlayerState
 
     public override void Enter()
     {
-        _player.PlayerMovement.CanMove = false;
-        _player.PlayerMovement.StopImmediately();
+        _player.MovementCompo.CanMove = false;
+        _player.MovementCompo.StopImmediately();
         base.Enter();
     }
 
@@ -25,7 +25,7 @@ public class PlayerAttackState : PlayerState
 
     public override void Exit()
     {
-        _player.PlayerMovement.CanMove = true;
+        _player.MovementCompo.CanMove = true;
         base.Exit();
     }
 

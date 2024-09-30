@@ -16,14 +16,14 @@ public class PlayerJumpAttackState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
 
         if(_endTriggerCalled){
-            if(_player.PlayerMovement.Rg2d.velocity.y > 0)
+            if(_player.MovementCompo.Velocity.y > 0)
                 _stateMachine.ChangeState(PlayerStateEnum.Jump);
-            else if(_player.PlayerMovement.Rg2d.velocity.y < 0)
+            else if(_player.MovementCompo.Velocity.y < 0)
                 _stateMachine.ChangeState(PlayerStateEnum.Fall);
         }
     }

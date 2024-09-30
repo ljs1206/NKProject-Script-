@@ -10,7 +10,7 @@ public class PlayerAnimationTrigger : MonoBehaviour
 
     private void AttackMove(){
         Vector3 dir = new Vector3(transform.localScale.x  * _player.frontMoves[0], 0, 0);
-        _player.PlayerMovement.Rg2d.AddForce(dir, ForceMode2D.Impulse);
+        (_player.MovementCompo as PlayerMovement)?.AttackFrontMove(dir);
     }
 
     private void PlayVFX()

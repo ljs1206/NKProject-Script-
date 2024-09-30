@@ -28,7 +28,7 @@ public class PlayerFallState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
     }

@@ -29,20 +29,20 @@ public class PlayerGroundState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        if(!_player.PlayerMovement.IsGround && _player.PlayerMovement.Rg2d.velocity.y < 0.1f){
+        if(!_player.MovementCompo.IsGround && _player.MovementCompo.Velocity.y < 0.1f){
             _stateMachine.ChangeState(PlayerStateEnum.Fall);
         }
     }
     private void HandleJumpEvent()
     {
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Jump);
         }
     }
 
     private void HandleAttackEvent()
     {
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Attack);
         }
     }

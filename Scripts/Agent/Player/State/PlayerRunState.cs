@@ -18,14 +18,14 @@ public class PlayerRunState : PlayerState
 
     private void HandleAttackEvent()
     {
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Attack);
         }
     }
 
     private void HandleJumpEvent()
     {
-        if(_player.PlayerMovement.IsGround){
+        if(_player.MovementCompo.IsGround){
             _stateMachine.ChangeState(PlayerStateEnum.Jump);
         }
     }
@@ -37,7 +37,7 @@ public class PlayerRunState : PlayerState
             _stateMachine.ChangeState(PlayerStateEnum.Idle);
         }
         else{
-            _player.PlayerMovement.Move();
+            _player.MovementCompo.Move();
         }
     }
 

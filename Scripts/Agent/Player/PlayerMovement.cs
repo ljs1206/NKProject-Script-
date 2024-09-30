@@ -1,9 +1,16 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMovement
 {
-    private Rigidbody2D _rg2d;
-    public Rigidbody2D Rg2d {get; protected set;}
+    private Rigidbody2D Rg2d;
+
+    public Vector3 Velocity => Rg2d.velocity;
+
+    public bool _isGround;
+    public bool IsGround => _isGround;
+
+    public bool CanMove { get; set; }
+
     private Transform _visualTrm;
     
     [Header("Movement Settings")]
@@ -14,19 +21,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpPower = 5f;
     [SerializeField] private float _checkJumpRay; 
     [SerializeField] private LayerMask _whatIsGround;
-    
-    [Header("Input")]
-    [SerializeField] private InputReader _InputReader;
 
-    public bool IsGround;
-    [HideInInspector] public bool CanMove = true;
+    private Player _player;
 
-    private void Awake()
+    public void Initialize(Agent agent)
     {
+        _player = agent as Player;
         Rg2d = GetComponent<Rigidbody2D>();
         _visualTrm = transform.Find("Visual");
     }
-
     private void Start()
     {
         CanMove = true;
@@ -46,18 +49,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckOnTheGround()
     {
-        IsGround = Physics2D.Raycast(_footTrm.position, Vector3.down,
+        _isGround = Physics2D.Raycast(_footTrm.position, Vector3.down,
             _checkJumpRay, _whatIsGround);
     }
 
     public void Move()
     {
-        Rg2d.velocity = new Vector2(_InputReader.Movement.x *_moveSpeed ,Rg2d.velocity.y);
-        if (_InputReader.Movement.x != 0)
+        Rg2d.velocity = new Vector2(_player.InputReder.Movement.x *_moveSpeed ,Rg2d.velocity.y);
+        if (_player.InputReder.Movement.x != 0)
         {
-            _visualTrm.localScale = new Vector3(_InputReader.Movement.x,
+            _visualTrm.localScale = new Vector3(_player.InputReder.Movement.x,
                 _visualTrm.localScale.y, _visualTrm.localScale.z) ;
         }
+    }
+
+    public void AttackFrontMove(Vector3 force)
+    {
+        Rg2d.AddForce(force, ForceMode2D.Impulse);
     }
     
     public void Jump(){
@@ -73,5 +81,10 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(new Ray(_footTrm.position, Vector3.down));
     }
-    #endif
+
+    public void GetKnockback(Vector3 force)
+    {
+        
+    }
+#endif
 }

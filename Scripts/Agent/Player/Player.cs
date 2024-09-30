@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 
 public enum PlayerStateEnum
@@ -31,8 +32,6 @@ public class Player : Agent
     [Header("Input")]
     [SerializeField] private InputReader _InputReader;
     
-    private PlayerMovement _playerMovement;
-    public PlayerMovement PlayerMovement => _playerMovement;
     public InputReader InputReder => _InputReader;
     // public PlayerVFX PlayerVFXCompo => VFXCompo as PlayerVFX;
     
@@ -40,8 +39,6 @@ public class Player : Agent
     protected override void Awake()
     {
         base.Awake();
-        
-        _playerMovement = GetComponent<PlayerMovement>();
         
         StateMachine = new PlayerStateMachine();
 
@@ -81,8 +78,7 @@ public class Player : Agent
 
     public override void Attack()
     {
-        // bool success = DamageCasterCompo.CastDamage();
-
+        bool success = DamageCasterCompo.CastDamage();
         // if(success && currentComboCounter == 2)
         // {
         //     SkillManager.Instance.GetSkill<ThunderStrikeSkill>().UseSkill();
@@ -105,6 +101,6 @@ public class Player : Agent
 
     public void Jump()
     {
-        PlayerMovement.Jump();
+        (MovementCompo as PlayerMovement)?.Jump();
     }
 }
