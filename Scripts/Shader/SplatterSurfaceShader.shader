@@ -83,7 +83,6 @@ Shader "Splatter/Surface"
 				half4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
 				c.rgb *= c.a;
 
-				// Discard pixels below cutoff so that stencil is only updated for visible pixels.
 				clip(c.a - _AlphaCutoff);
 
 				return c;
